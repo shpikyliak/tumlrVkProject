@@ -1,0 +1,22 @@
+<phpunit>
+  <testsuites>
+    <testsuite name="test">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist >
+       
+        <exclude>
+            
+            <directory suffix=".php">vendor/</directory>
+            <!-- add more directories with relative or absolute path -->
+        </exclude>
+    </whitelist>
+    <blacklist>
+        <directory suffix=".php">vendor/</directory>
+    </blacklist>
+</filter>    
+
+</phpunit>
