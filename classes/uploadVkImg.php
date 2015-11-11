@@ -18,6 +18,7 @@ function uploadImg ($photosPost)
     $data = json_decode($request);
     $link = $data->response->upload_url;
     $photo = explode('/||/', $photosPost);
+    $group_id = '101646894';
     $postParams = array();
     $index = 0;
     for ($i = 1; $i < count($photo); $i++) {
@@ -46,14 +47,14 @@ function uploadImg ($photosPost)
         $photoParams = json_decode($response);
         $photo = $photoParams->photo;
         $server = $photoParams->server;
-        $url = 'https://api.vk.com/method/photos.saveWallPhoto?group_id=101646894&v=5.5&photo=' . $photo . '&server=' . $server . '&hash=' . $photoParams->hash . '&access_token=' . $token;
+        $url = 'https://api.vk.com/method/photos.saveWallPhoto?group_id='.$group_id.'&v=5.5&photo=' . $photo . '&server=' . $server . '&hash=' . $photoParams->hash . '&access_token=' . $token;
         $an = get_curl($url);
         $save = json_decode($an)->response;
         $attachments = "";
         for ($i = 0; $i < count($save); $i++) {
             $attachments = $attachments . "photo" . $user_uid . "_" . $save[$i]->id . ',';
         }
-        $url = 'https://api.vk.com/method/wall.post?owner_id=-101646894&from_group=1&attachments=' . $attachments . '&access_token=' . $token;
+        $url = 'https://api.vk.com/method/wall.post?owner_id=-'.$group_id.'&from_group=1&attachments=' . $attachments . '&access_token=' . $token;
         $an = get_curl($url);
         if (!isset(\GuzzleHttp\json_decode($an)->response)) {
             echo "Unknown error";

@@ -10,6 +10,7 @@ $token = $_ENV['VK_ACCESS_TOKEN'];
 $user_uid = $_ENV['USER_UID'];
 $url = 'https://api.vk.com/method/users.get?access_token=' . $token;
 $response = json_decode(get_curl($url));
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +28,9 @@ $response = json_decode(get_curl($url));
     <input type="text" placeholder="Type blog name" name="name">
     <button type="submit" class="btn">Send</button>
 </form>
+<?php if ($token != ''){?>
 <button id="sendImg" style="float: left;margin-left: 10px;" class="btn-primary">Send images</button>
+<?php } ?>
 <br>
 <br>
 <?php if (isset($response->error) || ($user_uid != $response->response[0]->uid)) { ?>
